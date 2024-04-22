@@ -1,35 +1,40 @@
-package dennisMohle.myZoo.com;
+package aYZoo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+
 
 public class App {
     public static void main(String[] args) {
+
         System.out.println("\n\n Welcome to My Zoo Program\n\n");
         System.out.println("\n Number of animals is: " + Animal.numOfAnimals);
 
         // local variables
-        String name;
+        String animalName;
         String species;
         int age;
 
-        // ArrayList of Animal objects
         ArrayList<Animal> animals = new ArrayList<>();
 
+        // Creating HashMap for counting species
+        HashMap<String, Integer> speciesCount = new HashMap<>();
+
         // Open an external file, parse it line by line, and get age and species
-        String filePath = "C:/2024_Spring/midtermFiles/arrivingAnimals.txt";
+        String filePath = "C:\\Users\\Amanda Panda\\Desktop\\FCC\\CIT 63\\Module04-aheartyou88-main\\src\\aYZoo\\arrivingAnimals.txt";
         File file = new File(filePath);
 
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
 
-                // Age is in the first element of the array named parts
-                String[] parts = line.split(", ");
+                // Split the line into parts using commas as separators
+                String[] parts = line.split(",");
 
-                // Check if the line has at least 1 part
+                // Check if there are at least two parts (name, age)
                 if (parts.length >= 1) {
                     String ageAndSpecies = parts[0];
                     System.out.println("ageAndSpecies: " + ageAndSpecies );
@@ -43,7 +48,7 @@ public class App {
                     species = theParts[4];
 
                     // Create a new animal object.
-                    Animal myAnimal = new Animal("name needed", species, age);
+                    Animal myAnimal = new Animal("name needed", age, species);
 
                     // Add the new Animal object to the ArrayList of Animals
                     animals.add(myAnimal);
@@ -55,12 +60,13 @@ public class App {
             e.printStackTrace();
         }
 
-        // We now have an arrayList of Animals. Let's output them!
-        for (Animal animal : animals){
-            System.out.println(animal);
-            System.out.println("Animal name: " + animal.getName() + ", Age: " + animal.getAge() + ", Species: " + animal.getSpecies());
-        }
-        System.out.println("\n Number of animals is: " + Animal.numOfAnimals);
 
+        // Output the list of animals
+        for (Animal animal : animals) {
+            System.out.println(animal);
+//            System.out.println("Animal name: " + animal.getName() + ", Age: " + animal.getAge() + ", Species: " + animal.getSpecies());
+        }
+
+        System.out.println("\n Number of animals is: " + Animal.numOfAnimals);
     }
 }
